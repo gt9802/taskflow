@@ -31,12 +31,12 @@ namespace TaskFLow.Services
 
         public List<TaskItem> GetAllTasks()
         {
-            throw new NotImplementedException();
+           return  _taskRepository.GetAll();
         }
 
-        public TaskItem GetTaskById(Guid taskId)
+        public TaskItem? GetTaskById(Guid taskId)
         {
-            throw new NotImplementedException();
+            return _taskRepository.GetById(taskId);
         }
 
         public void UpdateTask(Guid taskId)

@@ -23,5 +23,21 @@ namespace TaskFLow.Controller
            var createdTask =  _taskService.CreateTask(task);
             return Created($"/tasks/{createdTask.Id}",createdTask);
         }
+
+
+        [HttpGet]
+        public ActionResult<List<TaskItem>> getAllTask() { 
+            var tasks = _taskService.GetAllTasks();
+            return tasks;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<TaskItem> getTaskById(Guid id) { 
+            var task = _taskService.GetTaskById(id);
+            if (task == null) {
+                return NotFound();
+            }
+            return task; 
+        }
     }
 }

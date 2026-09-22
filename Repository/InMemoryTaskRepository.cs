@@ -26,7 +26,7 @@ namespace TaskFLow.Repository
             return tasks;
         }
 
-        public TaskItem GetById(Guid taskId)
+        public TaskItem? GetById(Guid taskId)
         {
             return tasks.FirstOrDefault(x => x.Id == taskId);
         }
