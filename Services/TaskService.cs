@@ -25,8 +25,9 @@ namespace TaskFLow.Services
             return taskItem;
         }
 
-        public void DeleteTask(Guid taskId)
+        public bool DeleteTask(Guid taskId)
         {
+            return _taskRepository.Delete(taskId);
         }
 
         public List<TaskItem> GetAllTasks()
@@ -39,9 +40,14 @@ namespace TaskFLow.Services
             return _taskRepository.GetById(taskId);
         }
 
-        public void UpdateTask(Guid taskId)
+        public bool UpdateTask(TaskUpdateItem task, Guid id)
         {
-            throw new NotImplementedException();
+            TaskItem item = new TaskItem();
+            item.Id = id;
+            item.Title = task.Title;
+            item.Description = task.Description;
+            item.IsCompleted = task.IsCompleted;
+            return _taskRepository.Update(item);
         }
     }
 }

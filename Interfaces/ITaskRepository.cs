@@ -11,8 +11,8 @@ namespace TaskFLow.Interfaces
         void Add(TaskItem task);
         List<TaskItem> GetAll();
         TaskItem GetById(Guid taskId);
-        void Delete(Guid taskId);
-        void Update(TaskItem task);
+        bool Delete(Guid taskId);
+        bool Update(TaskItem task);
 
     }
 }

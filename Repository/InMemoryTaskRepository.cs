@@ -16,9 +16,10 @@ namespace TaskFLow.Repository
             tasks.Add(task);
         }
 
-        public void Delete(Guid taskId)
+        public bool Delete(Guid taskId)
         {
-            throw new NotImplementedException();
+            TaskItem? task = tasks.FirstOrDefault(t => t.Id == taskId);
+            return tasks.Remove(task);
         }
 
         public List<TaskItem> GetAll()
@@ -31,9 +32,17 @@ namespace TaskFLow.Repository
             return tasks.FirstOrDefault(x => x.Id == taskId);
         }
 
-        public void Update(TaskItem task)
+        public bool Update(TaskItem task)
         {
-            throw new NotImplementedException();
+            TaskItem? t = tasks.FirstOrDefault(x => x.Id == task.Id);
+            if (t != null)
+            {
+                t.Title = task.Title;
+                t.Description = task.Description;
+                t.IsCompleted = task.IsCompleted;
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -10,34 +10,65 @@ namespace TaskFLow.Controller
 {
     [ApiController]
     [Route("tasks")]
-    public class TaskController: ControllerBase
+    public class TaskController : ControllerBase
     {
         private readonly TaskService _taskService;
 
-        public TaskController(TaskService taskService) { 
+        public TaskController(TaskService taskService)
+        {
             _taskService = taskService;
         }
 
         [HttpPost]
-        public IActionResult create(TaskItemRequest task)  {
-           var createdTask =  _taskService.CreateTask(task);
-            return Created($"/tasks/{createdTask.Id}",createdTask);
+        public IActionResult create(TaskItemRequest task)
+        {
+            var createdTask = _taskService.CreateTask(task);
+            return Created($"/tasks/{createdTask.Id}", createdTask);
         }
 
 
         [HttpGet]
-        public ActionResult<List<TaskItem>> getAllTask() { 
+        public ActionResult<List<TaskItem>> getAllTask()
+        {
             var tasks = _taskService.GetAllTasks();
             return tasks;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TaskItem> getTaskById(Guid id) { 
+        public ActionResult<TaskItem> getTaskById(Guid id)
+        {
             var task = _taskService.GetTaskById(id);
-            if (task == null) {
+            if (task == null)
+            {
                 return NotFound();
             }
-            return task; 
+            return task;
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult updateTask(TaskUpdateItem task, Guid id)
+        {
+            if (_taskService.UpdateTask(task, id))
+            {
+                return Ok();
+
+            }
+            return NotFound();
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTaskById(Guid id)
+        {
+            var taskDeleted = _taskService.DeleteTask(id);
+            if (taskDeleted)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
