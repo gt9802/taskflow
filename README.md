@@ -21,7 +21,7 @@ TaskService
 ITaskRepository
      │
      ▼
-InMemoryTaskRepository
+PostgresqlTaskRepository
      │
      ▼
-List<TaskItem>
+PostgreSQL
